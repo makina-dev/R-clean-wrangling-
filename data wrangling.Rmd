@@ -1,0 +1,132 @@
+DATA WRANGLING
+ 
+ABSTRACT 
+
+The purpose of this  article is to discuss the process of data wrangling I’ve undertaken to get a clean data from the provided data. I will explain stepwise each process and give a better understanding in layman’s language .By using the R libraries , I managed to clean the data and give a better understanding of the raw data. The following is some steps I took to complete the data cleaning process.
+
+INTRODUCTION
+
+The following are the steps I took
+
+Importing the data and setting our working directory : in this stage we set our working directory and  import our raw data in to our rstudio for wrangling purposes
+
+Import libraries: here we import the specific R libraries we will to clean our data
+
+Data exploration : here we try to get a better understanding of the data by checking on the variables and the data structures
+
+Column renaming: as we explore the data we get long descriptive column names, since we want precise and short we rename the columns to give it a better meaning
+
+Checking for missing values: in this step , we check for missing values in each column
+
+Omitting the missing values: using the R command na.omit , we remove the missing values
+Changing the age column in to a number : since age is a number not a character , we have to change it in to a number
+
+Looking for outliers: we use a boxplot to check for outliers which they exist on the boxplot concerning age. We can try omit the outliers for better visualization and results
+
+View the clean data for further cleaning: we view the cleaned data to see if we can do more. Since the data Is ready and clean we stop here
+
+CONCLUSION
+
+The above is the whole process I undertook during the data wrangling process. I hope you get a good understanding of each process.
+
+
+
+---
+title: "Untitled"
+author: "    "
+date: "7/14/2021"
+output: html_document
+---
+
+importing the data we will use and setting our working directory
+
+```{r}
+setwd("C:/project 001")
+library(readr)
+the_counted_2015= read_csv("the-counted-2015.csv")
+```
+
+Importing libraries we will use
+
+```{r}
+library(tidyr)
+library(tidyverse)
+library(ggplot2)
+```
+
+data exploration
+
+```{r}
+glimpse(the_counted_2015)
+names(the_counted_2015)
+dim(the_counted_2015)
+```
+
+column renaming 
+
+```{r}
+names(the_counted_2015)[5]= "race"
+names(the_counted_2015)[9]= "adress"
+names(the_counted_2015)[12]="cause_of_death"
+names(the_counted_2015)[13]="jurisdiction"
+names(the_counted_2015)[1]= "id"
+names(the_counted_2015)
+```
+
+checking for missing values in each column
+
+```{r}
+sum(is.na(the_counted_2015$id))
+sum(is.na(the_counted_2015$name))
+sum(is.na(the_counted_2015$age))
+sum(is.na(the_counted_2015$gender))
+sum(is.na(the_counted_2015$race))
+sum(is.na(the_counted_2015$month))
+sum(is.na(the_counted_2015$day))
+sum(is.na(the_counted_2015$year))
+sum(is.na(the_counted_2015$adress))
+sum(is.na(the_counted_2015$city))
+sum(is.na(the_counted_2015$state))
+sum(is.na(the_counted_2015$cause_of_death))
+sum(is.na(the_counted_2015$jurisdiction))
+sum(is.na(the_counted_2015$armed))
+```
+
+ommiting the missing values
+
+```{r}
+my_data_new=na.omit(the_counted_2015)
+names(my_data_new)
+```
+
+converting age to number since its a character which isn't correct
+
+```{r}
+my_data_new= my_data_new %>% mutate(age=as.numeric(age))
+str(my_data_new)
+```
+
+looking for  outliers using a boxplot
+
+```{r}
+boxplot(my_data_new$age)
+
+```
+ 
+ viewing the clean data
+ 
+```{r}
+glimpse(my_data_new)
+```
+ 
+ no more action needed
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
